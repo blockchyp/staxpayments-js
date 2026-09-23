@@ -1,7 +1,7 @@
 {
-  "name": "@blockchyp/blockchyp-js",
+  "name": "@blockchyp/staxpayments-js",
   "version": "2.30.5",
-  "description": "BlockChyp JavaScript Client",
+  "description": "Stax Payments JavaScript Client",
   "main": "index.js",
   "scripts": {
     "build": "./node_modules/.bin/eslint src/* && babel src -d dist",
@@ -19,7 +19,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/blockchyp/blockchyp-js.git"
+    "url": "git+https://github.com/blockchyp/staxpayments-js.git"
   },
   "keywords": [
     "es6",
@@ -29,9 +29,9 @@
   "author": "jeffreydpayne",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/blockchyp/blockchyp-js/issues"
+    "url": "https://github.com/blockchyp/staxpayments-js/issues"
   },
-  "homepage": "https://github.com/blockchyp/blockchyp-js#readme",
+  "homepage": "https://github.com/blockchyp/staxpayments-js#readme",
   "devDependencies": {
     "@babel/cli": "^7.27.0",
     "@babel/core": "^7.27.0",
