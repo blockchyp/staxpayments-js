@@ -34,7 +34,62 @@ npm install @blockchyp/staxpayments-js --save
 ## A Simple Example
 
 Running your first transaction is easy. Make sure you have a Stax Payments terminal,
-activate it, and generate a set of API keys.
+activate it, and obtain a Stax bearer token.
+
+The SDK exposes a single root client, `StaxPaymentsClient`, organized into
+namespaces (one per API area) reached as properties — e.g. `client.payments`,
+`client.terminals`. The root client builds one shared transport, so a single set
+of transient credentials is fetched and reused across every namespace.
+
+```javascript
+let StaxPayments = require('@blockchyp/staxpayments-js');
+
+// Construct the root client with your Stax bearer token. Terminal transactions
+// (charge, preauth) transparently exchange it for short-lived transient
+// credentials, shared across every namespace.
+let client = new StaxPayments.StaxPaymentsClient(
+  new StaxPayments.StaxApiCredentials('<your-stax-bearer-token>')
+);
+
+client.payments.charge({
+  test: true,
+  terminalName: 'Test Terminal',
+  amount: '55.00',
+})
+  .then(function (response) {
+    if (response.approved) {
+      console.log('Approved');
+      console.log(response.transactionId);
+      console.log(response.authCode);
+      console.log(response.authorizedAmount);
+    } else {
+      console.log(response.responseDescription);
+    }
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+```
+
+The response contains all the information you'll need to complete processing
+a transaction. Of particular importance is `receiptSuggestions`, which contains
+all the fields that are required or recommended for PCI or EMV compliance.
+
+## Stax Payments Models
+
+`charge` and `preauth` take a Stax Payments request and resolve to a Stax
+Payments response:
+
+| Model | Purpose |
+| ----- | ------- |
+| Auth request | Charge and preauth request. Carries the amount, terminal, currency, tip and tax subtotals, and the test flag. |
+| Auth response | Charge and preauth response. Carries the approval, transaction id, auth code, authorized and requested amounts, card details such as the masked PAN, entry method and network, and the `receiptSuggestions` needed for PCI and EMV compliance. |
+
+`transactionId` on the response is the Stax transaction id.
+
+Note that these two operations resolve to the response body directly, unlike the
+other endpoints in this SDK, which resolve to the full HTTP response and put the
+body on `response.data`.
 
 
 
@@ -137,9 +192,9 @@ client.payments.charge({
   amount: '55.00',
 })
 .then(function (response) {
-    console.log('Response: ' + JSON.stringify(response.data))
+    console.log('Response: ' + JSON.stringify(response))
   })
-  .catch(function (error) {
+.catch(function (error) {
     console.log(error)
   });
 
@@ -208,9 +263,9 @@ client.payments.preauth({
   amount: '27.00',
 })
 .then(function (response) {
-    console.log('Response: ' + JSON.stringify(response.data))
+    console.log('Response: ' + JSON.stringify(response))
   })
-  .catch(function (error) {
+.catch(function (error) {
     console.log(error)
   });
 
@@ -263,7 +318,7 @@ client.terminals.ping({
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
-  .catch(function (error) {
+.catch(function (error) {
     console.log(error)
   });
 
@@ -302,7 +357,7 @@ client.terminals.locate({
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
-  .catch(function (error) {
+.catch(function (error) {
     console.log(error)
   });
 
@@ -339,7 +394,7 @@ client.terminals.clear({
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
-  .catch(function (error) {
+.catch(function (error) {
     console.log(error)
   });
 
@@ -405,7 +460,7 @@ client.terminals.terminalStatus({
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
-  .catch(function (error) {
+.catch(function (error) {
     console.log(error)
   });
 
@@ -462,7 +517,7 @@ client.terminals.captureSignature({
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
-  .catch(function (error) {
+.catch(function (error) {
     console.log(error)
   });
 
@@ -534,7 +589,7 @@ client.terminals.newTransactionDisplay({
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
-  .catch(function (error) {
+.catch(function (error) {
     console.log(error)
   });
 
@@ -614,7 +669,7 @@ client.terminals.updateTransactionDisplay({
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
-  .catch(function (error) {
+.catch(function (error) {
     console.log(error)
   });
 
@@ -652,7 +707,7 @@ client.terminals.message({
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
-  .catch(function (error) {
+.catch(function (error) {
     console.log(error)
   });
 
@@ -701,7 +756,7 @@ client.terminals.booleanPrompt({
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
-  .catch(function (error) {
+.catch(function (error) {
     console.log(error)
   });
 
@@ -760,7 +815,7 @@ client.terminals.textPrompt({
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
-  .catch(function (error) {
+.catch(function (error) {
     console.log(error)
   });
 
@@ -796,7 +851,7 @@ client.terminals.terminals({
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
-  .catch(function (error) {
+.catch(function (error) {
     console.log(error)
   });
 
@@ -833,7 +888,7 @@ client.terminals.deactivateTerminal({
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
-  .catch(function (error) {
+.catch(function (error) {
     console.log(error)
   });
 
@@ -875,7 +930,7 @@ client.terminals.activateTerminal({
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
-  .catch(function (error) {
+.catch(function (error) {
     console.log(error)
   });
 
@@ -909,7 +964,7 @@ client.terminals.reboot({
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
-  .catch(function (error) {
+.catch(function (error) {
     console.log(error)
   });
 
