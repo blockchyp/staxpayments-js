@@ -1,0 +1,95 @@
+name: blockchyp-js
+on:
+  push:
+    branches:
+      - "develop"
+      - "master"
+      - "preview"
+    tags:
+      - "*"
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: node:22
+    steps:
+      - uses: act10ns/slack@44541246747a30eb3102d87f7a4cc5471b0ffb7d # v2.1.0
+        with:
+          status: starting
+          channel: '#gitactivity'
+        if: always()
+      - name: Check out repository code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+      - run: npm install
+      - name: Run Tests
+        run: make test
+      - uses: act10ns/slack@44541246747a30eb3102d87f7a4cc5471b0ffb7d # v2.1.0
+        with:
+          status: ${{ job.status }}
+          channel: '#gitactivity'
+        if: always()
+  test-build:
+    runs-on: ubuntu-latest
+    container:
+      image: node:22
+    if: ${{ always() && contains(join(needs.*.result, ','), 'success') && contains(github.ref_name, 'preview') }}
+    needs: [ test ]
+    steps:
+      - uses: act10ns/slack@44541246747a30eb3102d87f7a4cc5471b0ffb7d # v2.1.0
+        with:
+          status: starting
+          channel: '#gitactivity'
+        if: always()
+      - name: Check out repository code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+      - run: npm install
+      - name: Run Build
+        run: make build
+      - uses: act10ns/slack@44541246747a30eb3102d87f7a4cc5471b0ffb7d # v2.1.0
+        with:
+          status: ${{ job.status }}
+          channel: '#gitactivity'
+        if: always()
+  publish:
+    runs-on: ubuntu-latest
+    container:
+      image: node:22
+    permissions:
+      id-token: write
+      contents: read
+    if: ${{ always() && contains(join(needs.*.result, ','), 'success') && startsWith(github.ref_name, 'v') }}
+    needs: [ test ]
+    steps:
+      - uses: act10ns/slack@44541246747a30eb3102d87f7a4cc5471b0ffb7d # v2.1.0
+        with:
+          status: starting
+          channel: '#gitactivity'
+        if: always()
+      - name: Check out repository code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+      - run: npm install
+      - name: Run Build
+        run: make build
+      - name: Setup Node for NPM
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.1.0
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Update npm
+        run: npm install -g npm@11.5.1
+      - name: Publish to NPM
+        run: npm publish --provenance --access public
+      - uses: act10ns/slack@44541246747a30eb3102d87f7a4cc5471b0ffb7d # v2.1.0
+        with:
+          status: ${{ job.status }}
+          channel: '#gitactivity'
+        if: always()
