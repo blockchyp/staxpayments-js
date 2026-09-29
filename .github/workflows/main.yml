@@ -1,4 +1,4 @@
-name: blockchyp-js
+name: staxpayments-js
 on:
   push:
     branches:
