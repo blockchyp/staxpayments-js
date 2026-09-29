@@ -1,5 +1,5 @@
 {
-  "name": "@stax/staxpayments-js",
+  "name": "@staxpayments/staxpayments-js",
   "version": "2.30.18",
   "description": "Stax Payments JavaScript Client",
   "main": "index.js",
