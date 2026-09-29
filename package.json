@@ -1,6 +1,6 @@
 {
   "name": "@blockchyp/staxpayments-js",
-  "version": "2.30.5",
+  "version": "2.30.17",
   "description": "Stax Payments JavaScript Client",
   "main": "index.js",
   "scripts": {
