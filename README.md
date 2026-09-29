@@ -2,7 +2,7 @@
 # Stax Payments JavaScript SDK
 
 [![Build Status](https://github.com/blockchyp/staxpayments-js/actions/workflows/main.yml/badge.svg)](https://github.com/blockchyp/staxpayments-js/actions/workflows/main.yml)
-[![NPM](https://img.shields.io/npm/v/@blockchyp/staxpayments-js)](https://www.npmjs.com/package/@blockchyp/staxpayments-js)
+[![NPM](https://img.shields.io/npm/v/@staxpayments/staxpayments-js)](https://www.npmjs.com/package/@staxpayments/staxpayments-js)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/blockchyp/staxpayments-js/blob/master/LICENSE)
 
 This is the SDK for JavaScript. Like all Stax Payments SDKs, it provides a full
@@ -28,7 +28,7 @@ The Stax Payments SDK is installable via NPM. Type the following command to add
 Stax Payments to your package.json.
 
 ```
-npm install @blockchyp/staxpayments-js --save
+npm install @staxpayments/staxpayments-js --save
 ```
 
 ## A Simple Example
@@ -42,7 +42,7 @@ namespaces (one per API area) reached as properties — e.g. `client.payments`,
 of transient credentials is fetched and reused across every namespace.
 
 ```javascript
-let StaxPayments = require('@blockchyp/staxpayments-js');
+let StaxPayments = require('@staxpayments/staxpayments-js');
 
 // Construct the root client with your Stax bearer token. Terminal transactions
 // (charge, preauth) transparently exchange it for short-lived transient
@@ -177,7 +177,7 @@ might be maliciously running on the point-of-sale system.
 
 
 ```javascript
-let StaxPayments = require('@blockchyp/staxpayments-js');
+let StaxPayments = require('@staxpayments/staxpayments-js');
 
 
 // construct a client with your Stax bearer token; terminal transactions
@@ -248,7 +248,7 @@ Note that preauths are not supported for cryptocurrency.
 
 
 ```javascript
-let StaxPayments = require('@blockchyp/staxpayments-js');
+let StaxPayments = require('@staxpayments/staxpayments-js');
 
 
 // construct a client with your Stax bearer token; terminal transactions
@@ -303,7 +303,7 @@ If you get a positive response, you've successfully verified all of the followin
 
 
 ```javascript
-let StaxPayments = require('@blockchyp/staxpayments-js');
+let StaxPayments = require('@staxpayments/staxpayments-js');
 
 
 // construct a client with your Stax bearer token; terminal transactions
@@ -342,7 +342,7 @@ The terminal will also return the public key for the terminal.
 
 
 ```javascript
-let StaxPayments = require('@blockchyp/staxpayments-js');
+let StaxPayments = require('@staxpayments/staxpayments-js');
 
 
 // construct a client with your Stax bearer token; terminal transactions
@@ -378,7 +378,7 @@ idle state.
 
 
 ```javascript
-let StaxPayments = require('@blockchyp/staxpayments-js');
+let StaxPayments = require('@staxpayments/staxpayments-js');
 
 
 // construct a client with your Stax bearer token; terminal transactions
@@ -445,7 +445,7 @@ The table below lists all possible status responses.
 
 
 ```javascript
-let StaxPayments = require('@blockchyp/staxpayments-js');
+let StaxPayments = require('@staxpayments/staxpayments-js');
 
 
 // construct a client with your Stax bearer token; terminal transactions
@@ -496,7 +496,7 @@ width, preserving the aspect ratio of the original image.
 
 
 ```javascript
-let StaxPayments = require('@blockchyp/staxpayments-js');
+let StaxPayments = require('@staxpayments/staxpayments-js');
 
 
 // construct a client with your Stax bearer token; terminal transactions
@@ -554,7 +554,7 @@ and amount.
 
 
 ```javascript
-let StaxPayments = require('@blockchyp/staxpayments-js');
+let StaxPayments = require('@staxpayments/staxpayments-js');
 
 
 // construct a client with your Stax bearer token; terminal transactions
@@ -634,7 +634,7 @@ and amount.
 
 
 ```javascript
-let StaxPayments = require('@blockchyp/staxpayments-js');
+let StaxPayments = require('@staxpayments/staxpayments-js');
 
 
 // construct a client with your Stax bearer token; terminal transactions
@@ -690,7 +690,7 @@ Just specify the target terminal and the message using the `message` parameter.
 
 
 ```javascript
-let StaxPayments = require('@blockchyp/staxpayments-js');
+let StaxPayments = require('@staxpayments/staxpayments-js');
 
 
 // construct a client with your Stax bearer token; terminal transactions
@@ -737,7 +737,7 @@ using the `yesCaption` and `noCaption` request parameters.
 
 
 ```javascript
-let StaxPayments = require('@blockchyp/staxpayments-js');
+let StaxPayments = require('@staxpayments/staxpayments-js');
 
 
 // construct a client with your Stax bearer token; terminal transactions
@@ -795,7 +795,7 @@ the response is returned in the `response` field.
 
 
 ```javascript
-let StaxPayments = require('@blockchyp/staxpayments-js');
+let StaxPayments = require('@staxpayments/staxpayments-js');
 
 
 // construct a client with your Stax bearer token; terminal transactions
@@ -837,7 +837,7 @@ current branding image displayed on the terminal
 
 
 ```javascript
-let StaxPayments = require('@blockchyp/staxpayments-js');
+let StaxPayments = require('@staxpayments/staxpayments-js');
 
 
 // construct a client with your Stax bearer token; terminal transactions
@@ -873,7 +873,7 @@ terminal inventory.  The terminal will be remotely cleared and factory reset.
 
 
 ```javascript
-let StaxPayments = require('@blockchyp/staxpayments-js');
+let StaxPayments = require('@staxpayments/staxpayments-js');
 
 
 // construct a client with your Stax bearer token; terminal transactions
@@ -914,7 +914,7 @@ cannot be overridden.
 
 
 ```javascript
-let StaxPayments = require('@blockchyp/staxpayments-js');
+let StaxPayments = require('@staxpayments/staxpayments-js');
 
 
 // construct a client with your Stax bearer token; terminal transactions
@@ -949,7 +949,7 @@ This API reboots the terminal.
 
 
 ```javascript
-let StaxPayments = require('@blockchyp/staxpayments-js');
+let StaxPayments = require('@staxpayments/staxpayments-js');
 
 
 // construct a client with your Stax bearer token; terminal transactions
