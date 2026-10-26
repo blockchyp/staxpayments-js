@@ -98,7 +98,7 @@ const DEFAULT_CORE_HOST = 'https://apiprod.fattlabs.com'
 // TRANSIENT_CREDENTIALS_PATH is the core API path that exchanges a Stax bearer
 // token for short-lived Stax Payments transient credentials. This is an
 // internal mechanism of the SDK and is never exposed as a public method.
-const TRANSIENT_CREDENTIALS_PATH = '/terminals/transient-credentials'
+const TRANSIENT_CREDENTIALS_PATH = '/internal/terminal/transient-credentials'
 
 // EXPIRY_SKEW_MS refreshes transient credentials this many milliseconds before
 // their stated expiry to avoid a credential lapsing mid-request (clock-skew
