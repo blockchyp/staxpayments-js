@@ -93,7 +93,7 @@ export class TerminalsClient {
    * Activates a terminal.
    */
   async activateTerminal (request) {
-    return this.base._coreRequest('post', '/terminals', request)
+    return this.base._coreRequest('post', '/internal/terminal', request)
   }
   /**
    * Reboot a payment terminal.
